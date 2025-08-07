@@ -22,29 +22,42 @@ A minimum viable product for the Team Skill Web Application. This MVP provides a
    cd teamskill-demo
    ```
 
-2. **Run with Docker Compose (Production):**
+2. **Quick start with Docker Compose (Production):**
    ```bash
    docker-compose up -d
    ```
    
    The application will be available at [http://localhost:3000](http://localhost:3000)
 
-3. **Run with Docker Compose (Development with hot reload):**
+3. **Quick start with helper script:**
+   ```bash
+   ./docker-run.sh
+   ```
+
+4. **Run with Docker Compose (Development with hot reload):**
    ```bash
    docker-compose --profile dev up teamskill-demo-dev
    ```
    
    The development server will be available at [http://localhost:3001](http://localhost:3001)
 
-4. **Build Docker image manually:**
+5. **Build and run Docker manually:**
    ```bash
+   # Build the image
    docker build -t teamskill-demo .
-   docker run -p 3000:80 teamskill-demo
+   
+   # Run the container
+   docker run -d --name teamskill-demo-app -p 3000:80 teamskill-demo
    ```
 
-5. **Stop the application:**
+6. **Stop and clean up:**
    ```bash
+   # Using docker-compose
    docker-compose down
+   
+   # Or manually
+   docker stop teamskill-demo-app
+   docker rm teamskill-demo-app
    ```
 
 ### 💻 Local Development Installation & Running
@@ -231,6 +244,8 @@ See the [Product Requirements Document](prd-team-skill-web-app.md) for detailed 
 **Port 3000 already in use:** Stop other containers with `docker-compose down` or use different port  
 **Development hot reload not working:** Ensure volume mounts are working correctly in docker-compose.yml  
 **Permission errors:** On Linux/Mac, try `sudo docker-compose up` or fix Docker permissions  
+**Build takes too long:** This is normal for the first build; subsequent builds will be faster due to layer caching  
+**npm install issues in container:** Try rebuilding with `docker-compose build --no-cache`
 
 **Local Development Issues:**
 **Build fails:** Ensure Node.js 18+ and npm 10+ are installed  
