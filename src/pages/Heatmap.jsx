@@ -36,8 +36,8 @@ const Heatmap = () => {
   };
 
   const getHeatmapColor = (average) => {
-    if (average >= 3.5) return '#28a745'; // Strong - Green
-    if (average >= 3.0) return '#17a2b8'; // Good - Teal
+    if (average >= 3.5) return '#28a745'; // Strong - Dark Green
+    if (average >= 3.0) return '#6dbf73'; // Good - Light Green
     if (average >= 2.5) return '#ffc107'; // Developing - Yellow
     if (average >= 2.0) return '#fd7e14'; // Needs attention - Orange
     return '#dc3545'; // Critical gap - Red
@@ -161,7 +161,7 @@ const Heatmap = () => {
                 <span className="legend-text">Strong (3.5+)</span>
               </div>
               <div className="legend-item">
-                <div className="legend-color" style={{ backgroundColor: '#17a2b8' }}></div>
+                <div className="legend-color" style={{ backgroundColor: '#6dbf73' }}></div>
                 <span className="legend-text">Good (3.0-3.4)</span>
               </div>
               <div className="legend-item">

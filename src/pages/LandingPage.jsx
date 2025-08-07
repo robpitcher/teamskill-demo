@@ -103,7 +103,7 @@ const LandingPage = () => {
       <footer className="footer" role="contentinfo">
         <div className="footer-container">
           <p className="footer-text">
-            &copy; 2024 TeamSkill. Built for modern teams.
+            &copy; 2025 TeamSkill. Built for modern teams.
           </p>
         </div>
       </footer>
