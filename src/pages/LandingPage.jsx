@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 
 /**
@@ -7,17 +8,17 @@ import './LandingPage.css';
  * A modern, accessible React functional component featuring:
  * - Clean, responsive design
  * - Clear call-to-action buttons
- * - Ready for React Router integration
+ * - React Router integration for navigation
  */
 const LandingPage = () => {
+  const navigate = useNavigate();
+  
   const handleStartAssessment = () => {
-    // In a real app with React Router, this would use navigate('/self-assessment')
-    window.location.href = '/self-assessment';
+    navigate('/self-assessment');
   };
 
   const handleViewHeatmap = () => {
-    // In a real app with React Router, this would use navigate('/login?role=manager')
-    window.location.href = '/login?role=manager';
+    navigate('/heatmap');
   };
 
   return (
