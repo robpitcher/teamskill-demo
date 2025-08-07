@@ -5,10 +5,49 @@ A minimum viable product for the Team Skill Web Application. This MVP provides a
 ## 🚀 Quick Start
 
 ### Prerequisites
+
+**Option 1: Docker (Recommended)**
+- Docker 20.10+ 
+- Docker Compose 2.0+
+
+**Option 2: Local Development**
 - Node.js 18+ (tested with v20.19.4)
 - npm 10+ (tested with v10.8.2)
 
-### Installation & Running
+### 🐳 Docker Installation & Running (Recommended)
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/robpitcher/teamskill-demo.git
+   cd teamskill-demo
+   ```
+
+2. **Run with Docker Compose (Production):**
+   ```bash
+   docker-compose up -d
+   ```
+   
+   The application will be available at [http://localhost:3000](http://localhost:3000)
+
+3. **Run with Docker Compose (Development with hot reload):**
+   ```bash
+   docker-compose --profile dev up teamskill-demo-dev
+   ```
+   
+   The development server will be available at [http://localhost:3001](http://localhost:3001)
+
+4. **Build Docker image manually:**
+   ```bash
+   docker build -t teamskill-demo .
+   docker run -p 3000:80 teamskill-demo
+   ```
+
+5. **Stop the application:**
+   ```bash
+   docker-compose down
+   ```
+
+### 💻 Local Development Installation & Running
 
 1. **Clone and install dependencies:**
    ```bash
@@ -60,6 +99,7 @@ This MVP includes:
 - **Styling:** Standard CSS with responsive design
 - **State Management:** React hooks (functional components)
 - **Accessibility:** Semantic HTML with ARIA labels
+- **Containerization:** Docker with multi-stage build (Node.js + nginx)
 
 ## 🎯 What's NOT in the MVP
 
@@ -98,6 +138,18 @@ teamskill-demo/
 
 ### Manual Testing Checklist
 
+**Docker Testing:**
+1. **Docker Build:**
+   - [ ] `docker-compose build` completes without errors
+   - [ ] `docker-compose up -d` starts container successfully
+   - [ ] Application loads at http://localhost:3000
+
+2. **Docker Development:**
+   - [ ] `docker-compose --profile dev up teamskill-demo-dev` starts dev container
+   - [ ] Development server accessible at http://localhost:3001
+   - [ ] Hot reload works when editing source files
+
+**Local Testing:**
 1. **Application Startup:**
    - [ ] `npm install` completes without errors
    - [ ] `npm start` launches development server successfully
@@ -107,6 +159,7 @@ teamskill-demo/
    - [ ] `npm run build` creates production build successfully
    - [ ] Build outputs to `build/` directory
 
+**Common Testing:**
 3. **User Interface:**
    - [ ] Landing page displays with proper styling
    - [ ] Both CTA buttons are clickable and functional
@@ -121,6 +174,20 @@ teamskill-demo/
 ## 🔄 Development Workflow
 
 ### Making Changes
+
+**With Docker:**
+```bash
+# Start development server with hot reload
+docker-compose --profile dev up teamskill-demo-dev
+
+# Make your changes to components in src/
+# Changes will be reflected automatically
+
+# Build production image
+docker-compose build
+```
+
+**Local Development:**
 ```bash
 # Start development server with hot reload
 npm start
@@ -159,6 +226,13 @@ See the [Product Requirements Document](prd-team-skill-web-app.md) for detailed 
 
 ### Common Issues
 
+**Docker Issues:**
+**Container fails to build:** Ensure Docker is running and you have sufficient disk space  
+**Port 3000 already in use:** Stop other containers with `docker-compose down` or use different port  
+**Development hot reload not working:** Ensure volume mounts are working correctly in docker-compose.yml  
+**Permission errors:** On Linux/Mac, try `sudo docker-compose up` or fix Docker permissions  
+
+**Local Development Issues:**
 **Build fails:** Ensure Node.js 18+ and npm 10+ are installed  
 **Port 3000 in use:** Kill existing processes or use `npm start -- --port 3001`  
 **Dependency issues:** Delete `node_modules/` and `package-lock.json`, then run `npm install`
@@ -168,4 +242,5 @@ See the [Product Requirements Document](prd-team-skill-web-app.md) for detailed 
 For issues with this MVP:
 1. Check the console for error messages
 2. Verify all dependencies are installed correctly
-3. Ensure you're using compatible Node.js/npm versions
+3. Ensure you're using compatible Node.js/npm versions or Docker
+4. Check Docker logs with `docker-compose logs`
