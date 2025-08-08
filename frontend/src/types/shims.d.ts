@@ -5,6 +5,7 @@ declare module '@chakra-ui/react';
 declare module '@emotion/react';
 declare module '@emotion/styled';
 declare module 'framer-motion';
+declare module 'axios';
 
 declare namespace JSX { interface IntrinsicElements { [elemName: string]: any } }
 
