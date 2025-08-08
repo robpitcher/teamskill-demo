@@ -4,6 +4,7 @@ import authRouter from './routes/auth';
 import assessmentsRouter from './routes/assessments';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
+import searchRouter from './routes/search';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cookieParser());
 
 app.use('/auth', authRouter);
 app.use('/assessments', assessmentsRouter);
+app.use('/search', searchRouter);
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
 

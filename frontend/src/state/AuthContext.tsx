@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { apiGet, apiPost } from '../api'
 
 interface User { id: number; username: string }
 
@@ -19,11 +20,8 @@ export const AuthProvider = ({ children }: any) => {
     let cancelled = false
     ;(async () => {
       try {
-        const res = await fetch('/auth/me', { credentials: 'include' })
-        if (res.ok) {
-          const u = await res.json()
-          if (!cancelled) setUser(u)
-        }
+        const u = await apiGet('/auth/me')
+        if (!cancelled) setUser(u)
       } catch {
         // ignore
       } finally {
@@ -34,22 +32,17 @@ export const AuthProvider = ({ children }: any) => {
   }, [])
 
   const login = async (username: string, password: string) => {
-    const res = await fetch('/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ username, password })
-    })
-    if (res.ok) {
-      const u = await res.json()
+    try {
+      const u = await apiPost('/auth/login', { username, password })
       setUser(u)
       return true
+    } catch {
+      return false
     }
-    return false
   }
 
   const logout = async () => {
-    await fetch('/auth/logout', { method: 'POST', credentials: 'include' })
+    try { await apiPost('/auth/logout', {}) } catch {}
     setUser(null)
   }
 
