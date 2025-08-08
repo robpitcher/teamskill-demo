@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Heading, Stack, Text, FormControl, FormLabel, Select, HStack, Button, Table, Thead, Tbody, Tr, Th, Td, Alert, AlertIcon } from '@chakra-ui/react'
+import { Heading, Stack, Text, FormControl, FormLabel, Select, HStack, Button, Table, Thead, Tbody, Tr, Th, Td, Alert, AlertIcon, Box } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import Heatmap from '../components/Heatmap'
 import { apiGet } from '../api'
 
@@ -86,7 +87,12 @@ export default function Dashboard() {
 
   return (
     <Stack spacing={6}>
-      <Heading>Team Skills Dashboard</Heading>
+      <HStack justify="space-between" align="center">
+        <Heading>Team Skills Dashboard</Heading>
+        <Button as={RouterLink} to="/assess" colorScheme="green" size="lg">
+          Take Skills Assessment
+        </Button>
+      </HStack>
       
       {heatmapLoading ? (
         <Text color="gray.500">Loading assessment data...</Text>
@@ -102,7 +108,13 @@ export default function Dashboard() {
       ) : (
         <Alert status="info">
           <AlertIcon />
-          No assessment data available yet. Complete your assessment to see team skills visualization.
+          <Box>
+            No assessment data available yet. 
+            <Button as={RouterLink} to="/assess" variant="link" colorScheme="blue" ml={1}>
+              Complete your assessment
+            </Button> 
+            to see team skills visualization.
+          </Box>
         </Alert>
       )}
 

@@ -28,6 +28,60 @@ type AssessmentData = {
 
 type Responses = Record<number, number> // questionId -> answerIndex
 
+// Business skills assessment questions
+const ASSESSMENT_QUESTIONS: Question[] = [
+  {
+    id: 1,
+    question: "How confident are you in your communication skills?",
+    answers: ["Very confident", "Somewhat confident", "Neutral", "Needs improvement"]
+  },
+  {
+    id: 2,
+    question: "How well do you manage your time?",
+    answers: ["Excellent", "Good", "Average", "Needs improvement"]
+  },
+  {
+    id: 3,
+    question: "How would you rate your problem-solving abilities?",
+    answers: ["Excellent", "Good", "Average", "Needs improvement"]
+  },
+  {
+    id: 4,
+    question: "How effective are you at working in a team?",
+    answers: ["Very effective", "Effective", "Somewhat effective", "Needs improvement"]
+  },
+  {
+    id: 5,
+    question: "How strong are your leadership skills?",
+    answers: ["Very strong", "Strong", "Average", "Needs improvement"]
+  },
+  {
+    id: 6,
+    question: "How comfortable are you with making decisions under pressure?",
+    answers: ["Very comfortable", "Comfortable", "Somewhat comfortable", "Not comfortable"]
+  },
+  {
+    id: 7,
+    question: "How well do you handle feedback?",
+    answers: ["Very well", "Well", "Average", "Needs improvement"]
+  },
+  {
+    id: 8,
+    question: "How would you rate your adaptability to change?",
+    answers: ["Excellent", "Good", "Average", "Needs improvement"]
+  },
+  {
+    id: 9,
+    question: "How effective are your negotiation skills?",
+    answers: ["Very effective", "Effective", "Somewhat effective", "Needs improvement"]
+  },
+  {
+    id: 10,
+    question: "How strong are your organizational skills?",
+    answers: ["Very strong", "Strong", "Average", "Needs improvement"]
+  }
+]
+
 export default function Assess() {
   const [assessmentData, setAssessmentData] = useState(null as AssessmentData | null)
   const [responses, setResponses] = useState({} as Responses)
@@ -35,22 +89,8 @@ export default function Assess() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // Load assessment questions from JSON file
-    const loadAssessment = async () => {
-      try {
-        const response = await fetch('/assessments/business-skills.json')
-        if (!response.ok) {
-          throw new Error('Failed to load assessment questions')
-        }
-        const data = await response.json()
-        setAssessmentData(data)
-      } catch (error) {
-        console.error('Error loading assessment:', error)
-        setMessage('Failed to load assessment questions')
-      }
-    }
-    
-    loadAssessment()
+    // Set assessment data directly from embedded questions
+    setAssessmentData({ questions: ASSESSMENT_QUESTIONS })
   }, [])
 
   const handleResponseChange = (questionId: number, answerIndex: string) => {
