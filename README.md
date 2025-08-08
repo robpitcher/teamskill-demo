@@ -73,6 +73,14 @@ Troubleshooting
   - PowerShell
     docker compose down -v
 
+Prisma/OpenSSL fix
+- The backend Dockerfile installs openssl in both build and runtime layers.
+- Prisma client binaryTargets are set to include debian-openssl-3.0.x to match Node 20 bookworm images.
+- If you still see libssl errors, force a clean rebuild:
+  - pwsh
+    docker compose build --no-cache backend
+    docker compose up -d
+
 Notes
 - Cookies use sameSite=lax and secure=false for localhost. Use HTTPS and secure cookies in production.
 - Search/filter API is not included in this MVP; the dashboard heat map uses static sample data.

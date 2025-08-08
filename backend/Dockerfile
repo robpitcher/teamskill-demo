@@ -4,6 +4,10 @@
 FROM node:20-bookworm-slim AS builder
 WORKDIR /app
 
+# Install OpenSSL for Prisma during generate
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install dependencies
 COPY backend/package*.json ./
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
@@ -21,6 +25,10 @@ RUN npm run build
 FROM node:20-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+
+# Install OpenSSL runtime dependency for Prisma engine
+RUN apt-get update -y && apt-get install -y --no-install-recommends openssl ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy built assets and node_modules (includes Prisma engines and generated client)
 COPY --from=builder /app/node_modules ./node_modules
