@@ -12,8 +12,9 @@ services:
       # Persist DB in a mounted volume
       - DATABASE_URL=file:/data/dev.db
       - JWT_SECRET=change-me
-      # Optional: bootstrap demo data the first time
-      - SEED_ON_BOOT=true
+      # Optional: seed an initial admin user if DB is empty (provide at runtime; do NOT commit secrets)
+      # - ADMIN_USERNAME=admin
+      # - ADMIN_PASSWORD=__set_at_runtime__
     ports:
       - "4000:4000"
     volumes:

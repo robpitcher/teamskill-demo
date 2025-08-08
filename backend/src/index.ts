@@ -47,19 +47,25 @@ async function ensureSqliteSchemaAndMaybeSeed() {
     ON "Assessment"("userId", "submittedAt");
   `);
 
-  // Optional seed: create a demo user if none exists
-  const shouldSeed = (process.env.SEED_ON_BOOT || '').toLowerCase() === 'true';
+  // Seed an admin user only if none exist and ADMIN_* envs are provided
   const userCount = await prisma.user.count();
-  if (shouldSeed && userCount === 0) {
-    const hash = await bcrypt.hash('Password123!', 10);
-    const demo = await prisma.user.create({ data: { username: 'manager', password: hash } });
-    await prisma.assessment.create({
-      data: {
-        userId: demo.id,
-        submittedAt: new Date(),
-        skills: JSON.stringify({ react: 4, node: 5, sql: 3, azure: 4 }) as unknown as any,
-      },
-    });
+  if (userCount === 0) {
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    if (!adminUsername || !adminPassword) {
+      console.log('No users found. Skipping seed because ADMIN_USERNAME/ADMIN_PASSWORD were not provided.');
+    } else {
+      const hash = await bcrypt.hash(adminPassword, 10);
+      const admin = await prisma.user.create({ data: { username: adminUsername, password: hash } });
+      await prisma.assessment.create({
+        data: {
+          userId: admin.id,
+          submittedAt: new Date(),
+          skills: JSON.stringify({ react: 4, node: 5, sql: 3, azure: 4 }) as unknown as any,
+        },
+      });
+      console.log(`Seeded admin user "${adminUsername}" from runtime environment variables.`);
+    }
   }
 }
 

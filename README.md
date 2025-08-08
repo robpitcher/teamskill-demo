@@ -2,6 +2,10 @@
 
 Small internal skills-tracking app to help managers find the right people for tasks.
 
+SECURITY NOTE
+- Never hardcode or commit passwords, secrets, JWT keys, or connection strings.
+- Seed an initial admin user only via runtime environment variables (not committed).
+
 Included
 - Backend: Node.js + Express, Prisma + SQLite, JWT auth (HTTP-only cookie)
 - Frontend: React + Vite build, Chakra UI, React Router, served by Nginx
@@ -17,15 +21,22 @@ Quick start (Docker)
    - App:  http://localhost:5173
    - API:  http://localhost:4000
 
-Default credentials (seeded)
-- username: manager
-- password: Password123!
+Seed an admin user (optional, local only)
+- If the DB is empty, the backend will create an admin user when both ADMIN_USERNAME and ADMIN_PASSWORD are provided at runtime.
+- Example using a local .env (do NOT commit this file):
+  - pwsh
+    @"
+    ADMIN_USERNAME=admin
+    ADMIN_PASSWORD=ChangeThisLocally!
+    JWT_SECRET=ChangeJwtSecretLocally!
+    "@ | Out-File -Encoding utf8NoBOM .env
+    docker compose --env-file .env up -d --build
 
 How it works
 - Frontend calls the API via /api. Nginx proxies /api -> http://backend:4000.
 - Backend sets an HTTP-only cookie on /auth/login and /auth/signup.
 - SQLite schema is bootstrapped on startup (CREATE TABLE IF NOT EXISTS). No prisma migrate needed.
-- Demo seed is enabled by compose when the DB is empty.
+- Optional admin seeding uses ADMIN_USERNAME/ADMIN_PASSWORD envs only.
 
 Endpoints (prefix with /api from the browser)
 - Auth
@@ -36,14 +47,17 @@ Endpoints (prefix with /api from the browser)
 - Assessments (auth required)
   - POST /assessments { skills: { react,node,sql,azure: 1..5 } }
   - GET  /assessments/me
+- Search (auth required)
+  - GET /search?skill=react&min=3
 - Health: GET /health -> { ok: true }
 
-Environment variables (compose)
+Environment variables
 Backend
 - PORT=4000
 - DATABASE_URL=file:/data/dev.db
-- JWT_SECRET=change-me
-- SEED_ON_BOOT=true
+- JWT_SECRET=<set-at-runtime>
+- ADMIN_USERNAME=<set-at-runtime> (optional)
+- ADMIN_PASSWORD=<set-at-runtime> (optional)
 
 Frontend
 - VITE_API_BASE=/api
@@ -64,28 +78,12 @@ Common operations
   docker compose down
 
 Troubleshooting
-- Docker build fails at "Prisma schema validation ... Field `skills` can't be of type Json" on SQLite:
-  - Fixed: the schema uses `skills String` and the app serializes/parses JSON manually.
-- If Prisma complains about OpenSSL in Docker, the base image already provides required libraries in runtime; generation happens during build. If issues persist on your environment, try rebuilding:
-  - PowerShell
-    docker compose build --no-cache
-- Reset DB: stop stack and remove volume
-  - PowerShell
-    docker compose down -v
-
-Prisma/OpenSSL fix
-- The backend Dockerfile installs openssl in both build and runtime layers.
-- Prisma client binaryTargets are set to include debian-openssl-3.0.x to match Node 20 bookworm images.
-- If you still see libssl errors, force a clean rebuild:
+- Prisma JSON with SQLite: schema uses String for skills; app serializes/parses JSON manually.
+- OpenSSL in Docker: backend Dockerfile installs openssl; Prisma binaryTargets include debian-openssl-3.0.x.
+- Force clean rebuild if needed:
   - pwsh
     docker compose build --no-cache backend
     docker compose up -d
 
 Notes
 - Cookies use sameSite=lax and secure=false for localhost. Use HTTPS and secure cookies in production.
-- Search/filter API is not included in this MVP; the dashboard heat map uses static sample data.
-
-Next iterations (not included here)
-- Azure AD authentication
-- NoSQL backend (e.g., Azure Cosmos DB)
-- Azure hosting (App Service, Container Apps, or AKS)
