@@ -11,7 +11,6 @@ router.get('/', requireAuth, async (req: any, res: any) => {
     const skill = (req.query?.skill as string) || 'react'
     const min = Number(req.query?.min ?? 3)
 
-    // Get users and their latest assessment
     const users = await prisma.user.findMany({ select: { id: true, username: true } })
     const results: any[] = []
 
@@ -21,7 +20,8 @@ router.get('/', requireAuth, async (req: any, res: any) => {
         orderBy: { submittedAt: 'desc' }
       })
       if (!latest) continue
-      const skills: any = (latest as any).skills
+      const raw = (latest as any).skills
+      const skills = typeof raw === 'string' ? JSON.parse(raw) : raw
       const rating = Number((skills ?? {})[skill] ?? 0)
       if (rating >= min) {
         results.push({

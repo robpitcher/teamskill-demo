@@ -57,7 +57,7 @@ async function ensureSqliteSchemaAndMaybeSeed() {
       data: {
         userId: demo.id,
         submittedAt: new Date(),
-        skills: { react: 4, node: 5, sql: 3, azure: 4 } as unknown as any,
+        skills: JSON.stringify({ react: 4, node: 5, sql: 3, azure: 4 }) as unknown as any,
       },
     });
   }

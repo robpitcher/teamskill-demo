@@ -63,6 +63,16 @@ Common operations
 - Stop stack:
   docker compose down
 
+Troubleshooting
+- Docker build fails at "Prisma schema validation ... Field `skills` can't be of type Json" on SQLite:
+  - Fixed: the schema uses `skills String` and the app serializes/parses JSON manually.
+- If Prisma complains about OpenSSL in Docker, the base image already provides required libraries in runtime; generation happens during build. If issues persist on your environment, try rebuilding:
+  - PowerShell
+    docker compose build --no-cache
+- Reset DB: stop stack and remove volume
+  - PowerShell
+    docker compose down -v
+
 Notes
 - Cookies use sameSite=lax and secure=false for localhost. Use HTTPS and secure cookies in production.
 - Search/filter API is not included in this MVP; the dashboard heat map uses static sample data.

@@ -16,9 +16,9 @@ async function main() {
 
   await prisma.assessment.createMany({
     data: [
-      { userId: u1.id, submittedAt: new Date(), skills: { react: 4, node: 5, sql: 3, azure: 4 } as any },
-      { userId: u2.id, submittedAt: new Date(), skills: { react: 3, node: 3, sql: 4, azure: 2 } as any },
-      { userId: u3.id, submittedAt: new Date(), skills: { react: 5, node: 2, sql: 2, azure: 3 } as any }
+      { userId: u1.id, submittedAt: new Date(), skills: JSON.stringify({ react: 4, node: 5, sql: 3, azure: 4 }) as any },
+      { userId: u2.id, submittedAt: new Date(), skills: JSON.stringify({ react: 3, node: 3, sql: 4, azure: 2 }) as any },
+      { userId: u3.id, submittedAt: new Date(), skills: JSON.stringify({ react: 5, node: 2, sql: 2, azure: 3 }) as any }
     ]
   });
 

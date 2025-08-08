@@ -13,7 +13,7 @@ router.post('/', requireAuth, async (req, res) => {
   const assessment = await prisma.assessment.create({
     data: {
       userId,
-      skills,
+      skills: JSON.stringify(skills) as any,
       submittedAt: new Date(),
     },
   });
@@ -27,7 +27,10 @@ router.get('/me', requireAuth, async (req, res) => {
     orderBy: { submittedAt: 'desc' },
   });
   if (!latest) return res.status(404).json({ error: 'no assessment found' });
-  return res.json(latest);
+  return res.json({
+    ...latest,
+    skills: typeof (latest as any).skills === 'string' ? JSON.parse((latest as any).skills) : (latest as any).skills,
+  });
 });
 
 export default router;

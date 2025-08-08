@@ -17,7 +17,7 @@ model User {
 model Assessment {
   id          Int      @id @default(autoincrement())
   submittedAt DateTime @default(now())
-  skills      Json
+  skills      String   // store JSON string
   userId      Int
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
