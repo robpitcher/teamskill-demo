@@ -29,9 +29,9 @@ type AssessmentData = {
 type Responses = Record<number, number> // questionId -> answerIndex
 
 export default function Assess() {
-  const [assessmentData, setAssessmentData] = useState<AssessmentData | null>(null)
-  const [responses, setResponses] = useState<Responses>({})
-  const [message, setMessage] = useState<string | null>(null)
+  const [assessmentData, setAssessmentData] = useState(null as AssessmentData | null)
+  const [responses, setResponses] = useState({} as Responses)
+  const [message, setMessage] = useState(null as string | null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Assess() {
   }, [])
 
   const handleResponseChange = (questionId: number, answerIndex: string) => {
-    setResponses(prev => ({
+    setResponses((prev: Responses) => ({
       ...prev,
       [questionId]: parseInt(answerIndex)
     }))
@@ -65,7 +65,7 @@ export default function Assess() {
 
     // Validate all questions are answered
     const unansweredQuestions = assessmentData.questions.filter(
-      q => responses[q.id] === undefined
+      (q: Question) => responses[q.id] === undefined
     )
     
     if (unansweredQuestions.length > 0) {
@@ -80,7 +80,7 @@ export default function Assess() {
       // Convert responses to skills format for backend compatibility
       // Map question text to response index + 1 (to get 1-4 scale instead of 0-3)
       const skills: Record<string, number> = {}
-      assessmentData.questions.forEach(question => {
+      assessmentData.questions.forEach((question: Question) => {
         const responseIndex = responses[question.id]
         // Convert 0-3 index to 1-4 scale for consistency with existing system
         skills[question.question] = responseIndex + 1
@@ -106,7 +106,7 @@ export default function Assess() {
     )
   }
 
-  const allQuestionsAnswered = assessmentData.questions.every(q => responses[q.id] !== undefined)
+  const allQuestionsAnswered = assessmentData.questions.every((q: Question) => responses[q.id] !== undefined)
 
   return (
     <Stack spacing={6}>
@@ -126,17 +126,17 @@ export default function Assess() {
       <Card>
         <CardBody>
           <Stack spacing={6}>
-            {assessmentData.questions.map((question, index) => (
+            {assessmentData.questions.map((question: Question, index: number) => (
               <FormControl key={question.id} isRequired>
                 <FormLabel fontWeight="semibold" mb={3}>
                   {index + 1}. {question.question}
                 </FormLabel>
                 <RadioGroup 
                   value={responses[question.id]?.toString() || ''} 
-                  onChange={(value) => handleResponseChange(question.id, value)}
+                  onChange={(value: string) => handleResponseChange(question.id, value)}
                 >
                   <Stack spacing={2}>
-                    {question.answers.map((answer, answerIndex) => (
+                    {question.answers.map((answer: string, answerIndex: number) => (
                       <Radio key={answerIndex} value={answerIndex.toString()}>
                         {answer}
                       </Radio>

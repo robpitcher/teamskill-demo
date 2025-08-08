@@ -20,9 +20,9 @@ const skillCategories = [
 export default function Dashboard() {
   const [skill, setSkill] = useState('communication')
   const [min, setMin] = useState(3)
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState([] as any[])
   const [loading, setLoading] = useState(false)
-  const [heatmapData, setHeatmapData] = useState<{users: string[], skills: string[], values: number[][]} | null>(null)
+  const [heatmapData, setHeatmapData] = useState(null as {users: string[], skills: string[], values: number[][]} | null)
   const [heatmapLoading, setHeatmapLoading] = useState(true)
 
   const loadHeatmapData = async () => {

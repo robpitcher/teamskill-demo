@@ -6,7 +6,10 @@ WORKDIR /app
 
 # Install dependencies
 COPY frontend/package*.json ./
-RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+RUN npm install --verbose
+
+# Add node_modules/.bin to PATH
+ENV PATH="/app/node_modules/.bin:$PATH"
 
 # Copy source and build
 COPY frontend/tsconfig.json ./
