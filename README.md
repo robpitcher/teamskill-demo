@@ -15,28 +15,15 @@ Included
 Quick start (Docker)
 1) Prerequisite: Docker Desktop
 2) Build and start:
-   - PowerShell
-     docker compose up -d --build
+   ```powershell
+    $env:ADMIN_USERNAME = "admin"
+    $env:ADMIN_PASSWORD = "admin"
+    $env:JWT_SECRET     = "jwtsecret";
+    docker compose up -d --build
+   ```
 3) Open:
    - App:  http://localhost:5173
    - API:  http://localhost:4000
-
-Seed an admin user (optional, local only)
-- If the DB is empty, the backend will create an admin user when both ADMIN_USERNAME and ADMIN_PASSWORD are provided at runtime.
-- Example using a local .env (do NOT commit this file):
-  - pwsh
-    @"
-    ADMIN_USERNAME=admin
-    ADMIN_PASSWORD=ChangeThisLocally!
-    JWT_SECRET=ChangeJwtSecretLocally!
-    "@ | Out-File -Encoding utf8NoBOM .env
-    docker compose --env-file .env up -d --build
-- Or specify environment variables on the command line (PowerShell):
-  - pwsh
-    $env:ADMIN_USERNAME = "admin";
-    $env:ADMIN_PASSWORD = "ChangeThisLocally!";
-    $env:JWT_SECRET = "ChangeJwtSecretLocally!";
-    docker compose up -d --build
 
 How it works
 - Frontend calls the API via /api. Nginx proxies /api -> http://backend:4000.
