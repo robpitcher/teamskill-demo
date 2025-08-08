@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+/dist
+
+# Local env and DB
+.env
+prisma/*.db
+prisma/*.db-journal
+prisma/*.sqlite*
+
+# VCS
+.git
+.gitignore
