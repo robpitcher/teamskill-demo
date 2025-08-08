@@ -11,10 +11,10 @@ services:
       - PORT=4000
       # Persist DB in a mounted volume
       - DATABASE_URL=file:/data/dev.db
-      - JWT_SECRET=change-me
+      - JWT_SECRET=${JWT_SECRET}
       # Optional: seed an initial admin user if DB is empty (provide at runtime; do NOT commit secrets)
-      # - ADMIN_USERNAME=admin
-      # - ADMIN_PASSWORD=__set_at_runtime__
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     ports:
       - "4000:4000"
     volumes:
