@@ -31,6 +31,12 @@ Seed an admin user (optional, local only)
     JWT_SECRET=ChangeJwtSecretLocally!
     "@ | Out-File -Encoding utf8NoBOM .env
     docker compose --env-file .env up -d --build
+- Or specify environment variables on the command line (PowerShell):
+  - pwsh
+    $env:ADMIN_USERNAME = "admin";
+    $env:ADMIN_PASSWORD = "ChangeThisLocally!";
+    $env:JWT_SECRET = "ChangeJwtSecretLocally!";
+    docker compose up -d --build
 
 How it works
 - Frontend calls the API via /api. Nginx proxies /api -> http://backend:4000.
