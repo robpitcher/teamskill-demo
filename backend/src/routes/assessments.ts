@@ -37,7 +37,12 @@ router.get('/me', requireAuth, async (req, res) => {
 router.get('/heatmap', requireAuth, async (req, res) => {
   try {
     const users = await prisma.user.findMany({ select: { id: true, username: true } });
-    const assessments = [];
+    const assessments: Array<{
+      userId: number;
+      username: string;
+      skills: Record<string, number>;
+      submittedAt: Date;
+    }> = [];
 
     for (const user of users) {
       const latest = await prisma.assessment.findFirst({
