@@ -33,4 +33,41 @@ router.get('/me', requireAuth, async (req, res) => {
   });
 });
 
+// GET /assessments/heatmap - get all latest assessments for heatmap visualization
+router.get('/heatmap', requireAuth, async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({ select: { id: true, username: true } });
+    const assessments: Array<{
+      userId: number;
+      username: string;
+      skills: Record<string, number>;
+      submittedAt: Date;
+    }> = [];
+
+    for (const user of users) {
+      const latest = await prisma.assessment.findFirst({
+        where: { userId: user.id },
+        orderBy: { submittedAt: 'desc' },
+      });
+      
+      if (latest) {
+        const skills = typeof (latest as any).skills === 'string' 
+          ? JSON.parse((latest as any).skills) 
+          : (latest as any).skills;
+        
+        assessments.push({
+          userId: user.id,
+          username: user.username,
+          skills,
+          submittedAt: latest.submittedAt
+        });
+      }
+    }
+
+    return res.json({ assessments });
+  } catch (e: any) {
+    return res.status(500).json({ error: e.message || 'Failed to get heatmap data' });
+  }
+});
+
 export default router;

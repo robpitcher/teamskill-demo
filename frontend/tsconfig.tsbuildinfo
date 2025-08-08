@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/api.ts","./src/main.tsx","./src/components/Heatmap.tsx","./src/pages/Assess.tsx","./src/pages/Dashboard.tsx","./src/pages/Login.tsx","./src/state/AuthContext.tsx","./src/types/shims.d.ts"],"version":"5.9.2"}
