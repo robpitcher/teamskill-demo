@@ -1,0 +1,42 @@
+{
+  "name": "teamskill-demo-mcp-server",
+  "description": "Playwright MCP server configuration for TeamSkill Demo application",
+  "version": "1.0.0",
+  "mcpVersion": "0.1.0",
+  "server": {
+    "command": "npx",
+    "args": ["playwright-mcp-server"],
+    "env": {
+      "PLAYWRIGHT_CONFIG_PATH": "./playwright.config.js",
+      "TEAMSKILL_BASE_URL": "http://localhost:8000"
+    }
+  },
+  "capabilities": [
+    "browser_automation",
+    "testing",
+    "screenshot",
+    "navigation"
+  ],
+  "configuration": {
+    "browser": "chromium",
+    "headless": true,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "timeout": 30000,
+    "baseURL": "http://localhost:8000"
+  },
+  "endpoints": [
+    {
+      "path": "/",
+      "description": "Home page with welcome message",
+      "testable": true
+    },
+    {
+      "path": "/health",
+      "description": "Health check endpoint",
+      "testable": true
+    }
+  ]
+}

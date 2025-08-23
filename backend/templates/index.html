@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>{{ title }}</h1>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h2>{{ message }}</h2>
+            <p class="description">{{ description }}</p>
+            
+            <div class="status-card">
+                <h3>Application Status</h3>
+                <p><strong>Status:</strong> <span class="status-badge">Development</span></p>
+                <p><strong>Version:</strong> 0.1.0</p>
+                <p><strong>Framework:</strong> FastAPI</p>
+            </div>
+            
+            <div class="features-preview">
+                <h3>Planned Features</h3>
+                <ul>
+                    <li>✨ Microsoft Entra ID Authentication</li>
+                    <li>📋 Dynamic Assessment Forms</li>
+                    <li>📊 Skill Data Visualization</li>
+                    <li>👥 Team Management Dashboard</li>
+                    <li>☁️ Azure Cloud Integration</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 TeamSkill Demo - Secure Team Skillset Management Platform</p>
+    </footer>
+</body>
+</html>
