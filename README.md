@@ -14,9 +14,8 @@ A secure web application for storing, managing, and visualizing team members' sk
 
 ### Prerequisites
 
-- Python 3.12+ 
+- Python 3.12+
 - pip (Python package manager)
-- Node.js 20+ (for Playwright testing)
 
 ### Backend Setup
 
@@ -29,10 +28,10 @@ A secure web application for storing, managing, and visualizing team members' sk
 2. **Create and activate Python virtual environment**
    ```bash
    python3 -m venv venv
-   
+
    # On macOS/Linux:
    source venv/bin/activate
-   
+
    # On Windows:
    venv\Scripts\activate
    ```
@@ -47,7 +46,7 @@ A secure web application for storing, managing, and visualizing team members' sk
    ```bash
    # From the backend directory
    python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-   
+
    # Alternative method:
    python app/main.py
    ```
@@ -55,39 +54,6 @@ A secure web application for storing, managing, and visualizing team members' sk
 5. **Access the application**
    - Open your browser to: http://localhost:8000
    - Health check endpoint: http://localhost:8000/health
-
-### Playwright MCP Server Setup
-
-The project includes Playwright MCP (Model Context Protocol) server configuration for browser automation and testing.
-
-1. **Install Playwright dependencies**
-   ```bash
-   cd playwright
-   npm install
-   npx playwright install
-   ```
-
-2. **Run Playwright tests**
-   ```bash
-   # Run all tests
-   npm test
-   
-   # Run tests in UI mode
-   npm run test:ui
-   
-   # Run tests with debugging
-   npm run test:debug
-   ```
-
-3. **MCP Server Configuration**
-   - Configuration file: `playwright/mcp-server-config.json`
-   - Test configuration: `playwright/playwright.config.js`
-   - Sample tests: `playwright/tests/`
-
-4. **Customize MCP Server**
-   - Update `TEAMSKILL_BASE_URL` in config for different environments
-   - Modify browser settings in `playwright.config.js`
-   - Add new test endpoints in `mcp-server-config.json`
 
 ## Project Structure
 
@@ -101,11 +67,6 @@ teamskill-demo/
 │   ├── templates/            # Jinja2 HTML templates
 │   ├── tests/                # Backend tests (placeholder)
 │   └── requirements.txt      # Python dependencies
-├── playwright/               # Playwright MCP server config
-│   ├── tests/                # Browser automation tests
-│   ├── mcp-server-config.json # MCP server configuration
-│   ├── playwright.config.js  # Playwright test configuration
-│   └── package.json          # Node.js dependencies
 ├── docs/                     # Documentation
 │   └── prd.md               # Product Requirements Document
 └── README.md                # This file
@@ -154,20 +115,10 @@ cd backend
 python -m pytest tests/  # When tests are added
 ```
 
-### Running Playwright Tests
-
-```bash
-cd playwright
-npm test                  # Run all browser tests
-npm run test:ui          # Interactive test runner
-npm run test:report      # View test reports
-```
-
 ## Deployment
 
 ### Local Development
 - Backend: http://localhost:8000
-- Playwright tests: Configured to test against local backend
 
 ### Future Azure Deployment
 This application is designed for Azure hosting:
@@ -181,7 +132,6 @@ This application is designed for Azure hosting:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `TEAMSKILL_BASE_URL` | Base URL for the application | `http://localhost:8000` |
-| `PLAYWRIGHT_CONFIG_PATH` | Path to Playwright config | `./playwright.config.js` |
 
 ## Contributing
 
@@ -189,7 +139,6 @@ This application is designed for Azure hosting:
 2. Install dependencies: `pip install -r backend/requirements.txt`
 3. Run the development server: `uvicorn app.main:app --reload`
 4. Make your changes
-5. Test with Playwright: `cd playwright && npm test`
 
 ## Security Notes
 
