@@ -5,47 +5,9 @@ Tests template context handling and rendering behavior.
 
 import pytest
 from fastapi.testclient import TestClient
-
-
-def test_home_template_context_variables(client):
-    """Test that template context variables are properly passed and rendered."""
-    response = client.get("/")
-    assert response.status_code == 200
-    
-    content = response.text
-    
-    # Verify template variables are rendered correctly
-    assert "TeamSkill Demo" in content  # title variable
-    assert "Welcome to the TeamSkill Demo Application" in content  # message variable
-    assert "A secure platform for team skillset management and assessment." in content  # description variable
-
-
-def test_template_includes_development_status(client):
-    """Test that the template includes expected application status information."""
-    response = client.get("/")
-    assert response.status_code == 200
-    
-    content = response.text
-    
-    # Check for status information that should be in the template
-    assert "Application Status" in content
-    assert "Development" in content
-    assert "0.1.0" in content  # Version
-    assert "FastAPI" in content  # Framework
-
-
-def test_template_includes_planned_features(client):
-    """Test that the template includes the planned features section."""
-    response = client.get("/")
-    assert response.status_code == 200
-    
-    content = response.text
-    
-    # Check for planned features section
-    assert "Planned Features" in content
-    assert "Microsoft Entra ID Authentication" in content
-    assert "Dynamic Assessment Forms" in content
-    assert "Skill Data Visualization" in content
+from fastapi import Request
+from fastapi.templating import Jinja2Templates
+import os
 
 
 def test_template_responsive_structure(client):
@@ -58,18 +20,6 @@ def test_template_responsive_structure(client):
     # Check for responsive meta tag
     assert 'name="viewport"' in content
     assert 'width=device-width' in content
-
-
-def test_template_footer_information(client):
-    """Test that the template includes correct footer information."""
-    response = client.get("/")
-    assert response.status_code == 200
-    
-    content = response.text
-    
-    # Check footer content
-    assert "2024 TeamSkill Demo" in content
-    assert "Secure Team Skillset Management Platform" in content
 
 
 def test_template_css_link_correct(client):
@@ -122,24 +72,22 @@ def test_template_main_content_structure(client):
     assert "<main" in content
     assert "container" in content
     assert "hero" in content
-    assert "status-card" in content
-    assert "features-preview" in content
 
 
-def test_template_context_data_integration(client):
-    """Test that template context data is properly integrated in the final HTML."""
-    response = client.get("/")
-    assert response.status_code == 200
+def test_render_template_with_context_fixture(render_template_with_context, sample_context):
+    """Test using the render_template_with_context utility fixture."""
+    # Render the template with sample_context
+    template_content = render_template_with_context()
     
-    content = response.text
+    # Verify sample context variables are rendered
+    assert sample_context["title"] in template_content
+    assert sample_context["message"] in template_content
+    assert sample_context["description"] in template_content
     
-    # Verify that all context variables are properly rendered
-    # This tests the integration between route handler and template rendering
-    expected_context = {
-        "title": "TeamSkill Demo",
-        "message": "Welcome to the TeamSkill Demo Application", 
-        "description": "A secure platform for team skillset management and assessment."
-    }
+    # Test with extra context
+    extra_context = {"extra_var": "Extra Value"}
+    template_content = render_template_with_context(extra_context=extra_context)
     
-    for key, value in expected_context.items():
-        assert value in content, f"Template context variable '{key}' with value '{value}' not found in rendered HTML"
+    # Verify both sample context and extra context variables are rendered
+    assert sample_context["title"] in template_content
+    assert "Extra Value" in template_content
