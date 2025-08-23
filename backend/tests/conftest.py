@@ -42,12 +42,19 @@ def render_template_with_context(sample_context):
     templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
     
     def _render(template_name="index.html", extra_context=None):
+        # Create a mock request object
         mock_request = Request({"type": "http", "query_string": b"", "headers": []})
+        
+        # Create the context with sample data and request
         context = {**sample_context, "request": mock_request}
         
+        # Update with any extra context
         if extra_context:
             context.update(extra_context)
-            
-        return templates.get_template(template_name).render(context)
+        
+        # Instead of using get_template directly, use TemplateResponse to ensure
+        # context variables are properly processed
+        response = templates.TemplateResponse(template_name, context)
+        return response.body.decode()
     
     return _render

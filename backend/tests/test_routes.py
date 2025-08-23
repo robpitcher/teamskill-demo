@@ -125,26 +125,35 @@ def test_mock_home_with_sample_context(client, sample_context, monkeypatch):
     """Test a mock version of the home route with sample context data."""
     from fastapi import Request
     from fastapi.responses import HTMLResponse
-    from app.main import templates
+    from app.main import templates, app
     
-    # Create a mock route function that uses the sample_context
-    async def mock_home(request: Request):
-        return templates.TemplateResponse("index.html", {
-            "request": request,
-            **sample_context
-        })
+    # Backup original routes
+    original_routes = app.routes.copy()
     
-    # Apply the mock to the FastAPI app
-    monkeypatch.setattr(app, "routes", [])
-    app.get("/")(mock_home)
+    try:
+        # Create a fresh app instance for this test
+        app.routes.clear()
+        
+        # Create a mock route function that uses the sample_context
+        @app.get("/", response_class=HTMLResponse)
+        async def mock_home(request: Request):
+            return templates.TemplateResponse("index.html", {
+                "request": request,
+                **sample_context
+            })
+        
+        # Test the mock route
+        response = client.get("/")
+        assert response.status_code == 200
+        
+        content = response.text
+        
+        # Verify the sample context values are used
+        assert sample_context["title"] in content
+        assert sample_context["message"] in content
+        assert sample_context["description"] in content
     
-    # Test the mock route
-    response = client.get("/")
-    assert response.status_code == 200
-    
-    content = response.text
-    
-    # Verify the sample context values are used
-    assert sample_context["title"] in content
-    assert sample_context["message"] in content
-    assert sample_context["description"] in content
+    finally:
+        # Restore original routes
+        app.routes.clear()
+        app.routes.extend(original_routes)
