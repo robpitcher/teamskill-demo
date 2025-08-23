@@ -70,7 +70,7 @@ Create a secure, user-friendly web application for storing, managing, and visual
 
 #### 4.3. App Stack
 - Frontend: React.js (preferred) or similar modern framework
-- Backend: Node.js/Express, .NET Core, or Azure Functions
+- Backend: python
 - API layer for database and file upload operations
 
 #### 4.4. Scalability & Performance
