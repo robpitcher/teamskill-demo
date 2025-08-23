@@ -178,6 +178,9 @@ npm run build
 
 ## Additional Notes
 
+### MCP Servers
+Check for and be sure to use MCP servers configured in `.vscode\mcp.json`
+
 ### Playwright MCP Server Configuration
 The project includes planned Playwright MCP server configuration for testing. This will be documented in the main README when implemented.
 
