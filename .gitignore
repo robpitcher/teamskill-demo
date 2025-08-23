@@ -75,3 +75,5 @@ frontend/.cache/
 # Docker/compose local overrides
 /docker-compose.override.yml
 *.local.ymlplaywright/node_modules/
+
+.local/
