@@ -1,1 +1,194 @@
-2a
+# TeamSkill Demo
+
+A secure web application for storing, managing, and visualizing team members' skillsets and strengths. This application allows team members to complete self-assessment forms and enables team leaders to view aggregated skill data.
+
+## Features (Planned)
+
+- 🔐 **Microsoft Entra ID Authentication** - Secure single sign-on
+- 📋 **Dynamic Assessment Forms** - Admin-uploaded skill assessments
+- 📊 **Skill Data Visualization** - Individual and team skill dashboards
+- 👥 **Team Management** - Role-based access control
+- ☁️ **Azure Integration** - Cloud-hosted with Azure services
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile devices
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.12+
+- pip (Python package manager)
+
+### Backend Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/robpitcher/teamskill-demo.git
+   cd teamskill-demo
+   ```
+
+2. **Create and activate Python virtual environment**
+   ```bash
+   python3 -m venv venv
+
+   # On macOS/Linux:
+   source venv/bin/activate
+
+   # On Windows:
+   venv\Scripts\activate
+   ```
+
+3. **Automated Setup (Linux/macOS)**
+   ```bash
+   # Make the setup script executable
+   chmod +x setup.sh
+   
+   # Run the setup script
+   ./setup.sh
+   ```
+
+4. **Manual Setup**
+   ```bash
+   # Install Python dependencies
+   cd backend
+   pip install -r requirements.txt
+   ```
+
+6. **Access the application**
+   - Open your browser to: http://localhost:8000
+   - Health check endpoint: http://localhost:8000/health
+
+## Project Structure
+
+```
+teamskill-demo/
+├── backend/                   # Python FastAPI application
+│   ├── app/                   # Application code
+│   │   ├── __init__.py
+│   │   └── main.py           # FastAPI app with routes
+│   ├── static/               # CSS, JS, images
+│   │   └── style.css         # Application styling
+│   ├── templates/            # Jinja2 HTML templates
+│   │   └── index.html        # Home page template
+│   └── requirements.txt      # Python dependencies
+├── docs/                     # Documentation
+│   └── prd.md                # Product Requirements Document
+├── frontend/                 # React frontend (placeholder)
+│   └── README.md             # Frontend documentation
+├── setup.sh                  # Setup automation script
+└── README.md                 # This file
+```
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Home page with welcome message |
+| `/health` | GET | Health check for monitoring |
+
+## Development
+
+### Backend Development
+
+The backend uses FastAPI with the following key components:
+- **FastAPI**: Modern ASGI web framework for building APIs
+- **Uvicorn**: ASGI server for development and production
+- **Jinja2**: Template engine for HTML rendering (temporary until React frontend)
+- **Static files**: CSS styling for the basic UI
+
+### Template Development
+
+Templates are located in `backend/templates/` and use Jinja2 syntax:
+
+```html
+<h1>{{ title }}</h1>
+<p>{{ description }}</p>
+```
+
+### Adding New Routes
+
+```python
+@app.get("/new-endpoint")
+async def new_endpoint():
+    return {"message": "Hello from new endpoint"}
+```
+
+## Dependencies
+
+Current backend dependencies:
+- fastapi==0.104.1
+- uvicorn==0.24.0
+- jinja2==3.1.2
+- python-multipart==0.0.6
+
+## Testing
+
+Testing infrastructure will be added in future updates.
+
+### Running Backend Tests (Future)
+
+```bash
+cd backend
+python -m pytest tests/  # When tests are added
+```
+
+## Future Plans
+
+### Frontend Development
+
+The frontend is planned to be built with:
+- **React.js**: Modern UI library
+- **TypeScript**: Type-safe JavaScript
+- **Vite**: Fast build tool
+- **Azure Static Web Apps**: Hosting platform
+
+Refer to `frontend/README.md` for more details on the planned frontend implementation.
+
+## Deployment
+
+### Local Development
+- Backend: http://localhost:8000
+
+### Future Azure Deployment
+This application is designed for Azure hosting:
+- **Azure App Service**: For backend hosting
+- **Azure Static Web Apps**: For React frontend hosting
+- **Azure SQL/Cosmos DB**: For data storage
+- **Azure Blob Storage**: For assessment file uploads
+- **Microsoft Entra ID**: For secure authentication
+- **Azure Monitor/App Insights**: For logging and diagnostics
+
+## Environment Variables
+
+The following environment variables will be used in future versions:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `TEAMSKILL_BASE_URL` | Base URL for the application | `http://localhost:8000` |
+| `AZURE_STORAGE_CONNECTION_STRING` | Azure Blob Storage connection | Not set |
+| `AZURE_DB_CONNECTION_STRING` | Database connection string | Not set |
+
+## Contributing
+
+1. Ensure Python virtual environment is activated
+2. Install dependencies: `pip install -r backend/requirements.txt`
+3. Run the development server: `uvicorn app.main:app --reload`
+4. Make your changes
+5. Update documentation as needed
+
+## Security Notes
+
+- Authentication not implemented yet (planned: Microsoft Entra ID)
+- No sensitive data storage in current version
+- Future versions will include proper RBAC and data encryption
+
+## License
+
+This project is for demonstration purposes.
+
+---
+
+**Current Status**: 🚧 Early Development - Basic scaffold implemented
+
+Last Updated: August 23, 2025
+
+For detailed requirements and planned features, see [Product Requirements Document](docs/prd.md).
