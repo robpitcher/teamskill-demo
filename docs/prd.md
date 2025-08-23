@@ -29,6 +29,7 @@ Create a secure, user-friendly web application for storing, managing, and visual
   - A set of skill areas
   - Questions per skill area
   - Answer/rating options (e.g., 1–5 scale, multiple choice)
+- Users can see their previous assessments.
 
 #### 3.3. Self-Assessment Form Page
 - Users can fill out the latest self-assessment.
@@ -40,7 +41,7 @@ Create a secure, user-friendly web application for storing, managing, and visual
 #### 3.4. Skillset Data Storage
 - Store user responses securely in Azure database (e.g., Azure SQL, Cosmos DB).
 - Each user can only see/edit their own assessments.
-- Admins/team leads can view aggregated skill data.
+- Admins/team leads can view individual and aggregated skill data.
 
 #### 3.5. Data Visualization & Reporting
 - Dashboard for team leads/admins:
@@ -50,9 +51,8 @@ Create a secure, user-friendly web application for storing, managing, and visual
 - Individual user dashboard showing their skill profile over time.
 
 #### 3.6. Security & Privacy
-- All data encrypted at rest and in transit.
 - Role-based access (User, Admin/Lead)
-- Activity logging and audit trail for uploads/changes.
+- integrate with azure monitor and/or app insights for Activity logging, audit trail for uploads/changes, and diagnostics 
 
 ---
 
@@ -81,7 +81,7 @@ Create a secure, user-friendly web application for storing, managing, and visual
 
 ### 5. UX/UI
 
-- Clean, intuitive interface
+- sleek, modern, and intuitive interface
 - Accessible for WCAG 2.1 AA standards
 - Clear navigation: Dashboard, Assessment Form, Profile, Admin (if role)
 
@@ -90,8 +90,7 @@ Create a secure, user-friendly web application for storing, managing, and visual
 ### 6. Non-Functional Requirements
 
 - Uptime: 99.9% (Azure SLA)
-- Data backup and recovery plan
-- Support for future extensibility (adding new assessments, custom reports, etc.)
+- Support for future extensibility (adding new assessments, custom reports, ai search, etc.)
 
 ---
 
@@ -108,12 +107,3 @@ Create a secure, user-friendly web application for storing, managing, and visual
 - **Authentication issues:** Use well-documented Entra ID libraries and test integration.
 - **Data privacy:** Enforce strict RBAC, encrypt data, audit access.
 - **Assessment upload errors:** Validate file schema, provide user feedback.
-
----
-
-### 9. Open Questions
-
-- What skill areas/questions will be included in the initial assessment?
-- Who will upload/manage assessments (Admins only)?
-- Do users need to see past self-assessments or just the latest?
-- Any integration with other HR or team management tools?
