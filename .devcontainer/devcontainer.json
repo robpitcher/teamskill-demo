@@ -27,6 +27,6 @@
     "forwardPorts": [
         8000
     ],
-    "postCreateCommand": "pip install -r backend/requirements.txt && pip install black && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs",
+    "postCreateCommand": "pip install -r backend/requirements.txt && pip install black",
     "remoteUser": "vscode"
 }
