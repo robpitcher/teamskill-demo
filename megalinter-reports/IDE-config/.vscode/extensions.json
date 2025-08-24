@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "monosans.djlint",
+        "ms-pyright.pyright",
+        "matangover.mypy",
+        "stylelint.vscode-stylelint",
+        "charliermarsh.ruff",
+        "HTMLHint.vscode-htmlhint",
+        "ms-python.python"
+    ]
+}

@@ -1,0 +1,122 @@
+MegaLinter can help you to define the same linter configuration locally
+
+INSTRUCTIONS
+
+- Copy the content of IDE-config folder at the root of your repository
+- if you are using Visual Studio Code, just reopen your project after the copy, and you will be prompted to install recommended extensions
+- If not, you can install extensions manually using the following links.
+
+IDE EXTENSIONS APPLICABLE TO YOUR PROJECT
+
+stylelint (CSS)
+  - atom:
+    - linter-stylelint: https://github.com/AtomLinter/linter-stylelint
+  - emacs:
+    - flycheck: https://github.com/flycheck/flycheck
+  - sublime:
+    - SublimeLinter-stylelint: https://github.com/SublimeLinter/SublimeLinter-stylelint
+    - SublimeLinter-contrib-stylelint_d: https://github.com/jo-sm/SublimeLinter-contrib-stylelint_d
+  - vim:
+    - ale: https://github.com/dense-analysis/ale
+  - vscode:
+    - vscode-stylelint: https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint
+
+djlint (HTML)
+  - sublime:
+    - SublimeLinter-contrib-djlint: https://packagecontrol.io/packages/SublimeLinter-contrib-djlint
+  - vscode:
+    - djlint-vscode: https://marketplace.visualstudio.com/items?itemName=monosans.djlint
+
+htmlhint (HTML)
+  - atom:
+    - atom-htmlhint: https://github.com/htmlhint/atom-htmlhint
+  - brackets:
+    - brackets-htmlhint: https://github.com/htmlhint/brackets-htmlhint
+  - sublime:
+    - SublimeLinter-contrib-htmlhint: https://github.com/htmlhint/SublimeLinter-contrib-htmlhint
+  - vscode:
+    - vscode-htmlhint: https://marketplace.visualstudio.com/items?itemName=HTMLHint.vscode-htmlhint
+
+bandit (PYTHON)
+  - atom:
+    - bandit-lint: https://atom.io/packages/bandit-lint
+  - sublime:
+    - SublimeLinter-bandit: https://github.com/SublimeLinter/SublimeLinter-bandit
+  - vscode:
+    - Native Support: https://code.visualstudio.com/docs/python/linting#_bandit
+
+black (PYTHON)
+  - atom:
+    - python-black: https://atom.io/packages/python-black
+  - emacs:
+    - blacken: https://github.com/pythonic-emacs/blacken
+    - reformatter.el: https://github.com/purcell/reformatter.el
+    - elpy: https://github.com/jorgenschaefer/elpy
+  - idea:
+    - black: https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intellij-idea
+  - sublime:
+    - sublack: https://github.com/jgirardet/sublack
+  - vscode:
+    - VSCode Python Extension: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
+flake8 (PYTHON)
+  - atom:
+    - linter-flake8: https://atom.io/packages/linter-flake8
+  - idea:
+    - flake8-support: https://plugins.jetbrains.com/plugin/11563-flake8-support
+  - vscode:
+    - Native Support: https://code.visualstudio.com/docs/python/linting#_flake8
+
+isort (PYTHON)
+  - atom:
+    - atom-python-isort: https://github.com/bh/atom-python-isort
+    - atom-isort: https://atom.io/packages/atom-isort
+  - emacs:
+    - py-isort.el: https://github.com/paetzke/py-isort.el
+  - vim:
+    - ale: https://github.com/w0rp/ale
+    - vim-isort: https://github.com/fisadev/vim-isort#installation
+  - vscode:
+    - VSCode Python Extension: https://github.com/Microsoft/vscode-python
+
+mypy (PYTHON)
+  - atom:
+    - linter-mypy: https://atom.io/packages/linter-mypy
+  - emacs:
+    - Flycheck mypy: https://github.com/lbolla/emacs-flycheck-mypy
+  - idea:
+    - mypy-official: https://plugins.jetbrains.com/plugin/13348-mypy-official-/
+  - sublime:
+    - SublimeLinter-contrib-mypy: https://github.com/fredcallaway/SublimeLinter-contrib-mypy
+  - vim:
+    - Ale: https://github.com/dense-analysis/ale
+    - Syntastic: https://github.com/vim-syntastic/syntastic
+  - vscode:
+    - Mypy: https://marketplace.visualstudio.com/items?itemName=matangover.mypy
+
+pylint (PYTHON)
+  - eclipse:
+    - PyLint: https://pydev.org/manual_adv_pylint.html
+  - idea:
+    - PyCharm (Native Support): https://www.jetbrains.com/pycharm/
+  - visual_studio:
+    - Native Support: https://docs.microsoft.com/fr-fr/visualstudio/python/linting-python-code?view=vs-2019
+  - vscode:
+    - Native Support: https://code.visualstudio.com/docs/python/linting#_pylint
+
+pyright (PYTHON)
+  - emacs:
+    - LSP-pyright: https://github.com/emacs-lsp/lsp-pyright
+  - sublime:
+    - LSP-pyright: https://packagecontrol.io/packages/LSP-pyright
+  - vim:
+    - Ale: https://github.com/dense-analysis/ale
+    - coc-pyright: https://github.com/fannheyward/coc-pyright
+  - vscode:
+    - PyRight: https://marketplace.visualstudio.com/items?itemName=ms-pyright.pyright
+
+ruff (PYTHON)
+  - idea:
+    - Ruff: https://plugins.jetbrains.com/plugin/20574-ruff
+  - vscode:
+    - Ruff: https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff
