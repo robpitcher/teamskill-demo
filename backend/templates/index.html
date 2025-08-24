@@ -36,6 +36,9 @@
                     <li>👥 Team Management Dashboard</li>
                     <li>☁️ Azure Cloud Integration</li>
                 </ul>
+                {% if extra_var is defined %}
+                <p>{{ extra_var }}</p>
+                {% endif %}
             </div>
         </section>
     </main>

@@ -122,14 +122,33 @@ Current backend dependencies:
 
 ## Testing
 
-Testing infrastructure will be added in future updates.
+The project includes comprehensive unit tests for all existing functionality.
 
-### Running Backend Tests (Future)
+### Running Tests
 
 ```bash
 cd backend
-python -m pytest tests/  # When tests are added
+python -m pip install -r requirements.txt
+python -m pytest tests/ -v
 ```
+
+### Test Coverage
+
+Current tests cover:
+- ✅ **Route endpoints**: Home page (`/`) and health check (`/health`)
+- ✅ **Static file serving**: CSS files and error handling
+- ✅ **Template rendering**: Context variables and HTML structure
+- ✅ **HTTP methods**: Proper method validation and error responses
+
+For detailed testing documentation, see [`backend/tests/README.md`](backend/tests/README.md).
+
+### Continuous Integration
+
+GitHub Actions automatically runs all tests on pull requests to the main branch. The CI workflow:
+- Sets up Python 3.12 environment
+- Installs dependencies
+- Runs pytest with verbose output
+- Fails if any tests fail
 
 ## Future Plans
 
