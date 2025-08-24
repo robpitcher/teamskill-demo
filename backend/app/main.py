@@ -25,7 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Mount static files
 app.mount(
-    "/static", StaticFiles(directory=os.path.join(BASE_DIR, "static")), name="static"
+    "/static",
+    StaticFiles(directory=os.path.join(BASE_DIR, "static")),
+    name="static",
 )
 
 # Setup templates
@@ -44,7 +46,7 @@ async def home(request: Request):
             "title": "TeamSkill Demo",
             "message": "Welcome to the TeamSkill Demo Application",
             "description": (
-                "A secure platform for team skillset management and assessment."
+                "A secure platform for team skillset management and " "assessment."
             ),
         },
     )

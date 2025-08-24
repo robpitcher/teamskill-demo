@@ -45,7 +45,7 @@ def test_health_check_content_type(client):
 
 
 def test_health_check_response_structure(client):
-    """Test that the health check endpoint returns the correct JSON structure."""
+    """Test that health check endpoint returns correct JSON structure."""
     response = client.get("/health")
     assert response.status_code == 200
 

@@ -53,8 +53,8 @@ def render_template_with_context(sample_context):
         if extra_context:
             context.update(extra_context)
 
-        # Instead of using get_template directly, use TemplateResponse to ensure
-        # context variables are properly processed
+        # Instead of using get_template directly, use TemplateResponse to
+        # ensure context variables are properly processed
         response = templates.TemplateResponse(template_name, context)
         return response.body.decode()
 
