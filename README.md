@@ -150,6 +150,40 @@ GitHub Actions automatically runs all tests on pull requests to the main branch.
 - Runs pytest with verbose output
 - Fails if any tests fail
 
+## Code Quality & Linting
+
+The project uses MegaLinter to ensure code quality and consistency across Python, HTML, and CSS files.
+
+### Linting Standards
+
+MegaLinter automatically runs on all pull requests to the main branch and validates:
+- **Python**: Code style, syntax, and best practices
+- **HTML**: Template structure and validation
+- **CSS**: Styling standards and syntax
+
+Spellcheck linters are disabled to focus on code quality rather than documentation.
+
+### Running Linter Locally
+
+To run MegaLinter locally using Docker:
+
+```bash
+# Run MegaLinter on all files
+docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter:v7
+
+# Run MegaLinter on changed files only (faster)
+docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter:v7 --env VALIDATE_ALL_CODEBASE=false
+```
+
+### Linter Configuration
+
+The linting configuration is defined in `.mega-linter.yml` in the repository root. The configuration:
+- Enables only Python, HTML, and CSS linters
+- Disables spellcheck linters
+- Provides clear output for debugging issues
+
+For more information about MegaLinter, visit the [official documentation](https://megalinter.github.io/).
+
 ## Future Plans
 
 ### Frontend Development
