@@ -15,14 +15,14 @@ jobs:
   megalinter:
     name: MegaLinter
     runs-on: ubuntu-latest
-    
+
     steps:
       # Git Checkout
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0 # Full history required for VALIDATE_ALL_CODEBASE = true
+          # fetch-depth: 0
 
       # MegaLinter
       - name: MegaLinter
