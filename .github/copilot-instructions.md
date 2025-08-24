@@ -2,7 +2,7 @@
 
 ## Repository Overview
 
-This repository contains a **Team Member Skillset Datastore Web App** - a secure web application for storing, managing, and visualizing team members' skillsets and strengths. The project is currently in early development stage with planning documentation and basic scaffolding.
+This repository contains a **Team Member Skillset Datastore Web App** - a secure web application for storing, managing, and visualizing team members' skillsets and strengths. The project is currently in early development stages.
 
 ### Project Purpose
 - Allow team members to complete self-assessment forms based on dynamically uploaded assessments
@@ -97,10 +97,47 @@ teamskill-demo/
 
 ## Validation and Testing
 
+### IMPORTANT: Mega Linter Validation
+
+**After making ANY code changes, you MUST run Mega Linter and fix all reported issues:**
+
+```bash
+# Run Mega Linter locally
+npx mega-linter-runner --flavor cupcake
+
+# Or using Docker (recommended)
+docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter:v8
+
+# Or if you have a GitHub Actions workflow
+act -j megalinter
+```
+
+**Critical Requirements:**
+1. **Always** run Mega Linter after making changes
+2. **Always** review the Mega Linter report in `megalinter-reports/megalinter-report.html`
+3. **Always** fix ALL errors and failures before considering changes complete
+4. **Always** fix as many warnings as practical
+5. If Mega Linter reports failures, you MUST:
+   - Read the specific error messages
+   - Apply the suggested fixes
+   - Re-run Mega Linter to verify fixes
+   - Repeat until all errors are resolved
+
+### Mega Linter Configuration
+If `.mega-linter.yml` exists in the repository, respect its configuration. Common linters include:
+- **Python**: black, flake8, pylint, mypy, bandit
+- **JavaScript/TypeScript**: eslint, prettier
+- **Markdown**: markdownlint
+- **YAML**: yamllint
+- **JSON**: jsonlint
+- **Dockerfile**: hadolint
+- **Security**: gitleaks, secretlint
+
 ### Current Validation Steps
 1. **Documentation Review**: Ensure changes align with PRD requirements in `docs/prd.md`
 2. **Git Status**: Check `git status` before making changes
 3. **File Structure**: Maintain organized structure per .gitignore expectations
+4. **Mega Linter**: Run and resolve all issues
 
 ### Future Validation (When Implemented)
 1. **Python Linting**: Will use `black`, `flake8`, `mypy`
@@ -122,6 +159,10 @@ cd frontend/
 npm run lint
 npm run test
 npm run build
+
+# ALWAYS run Mega Linter last
+cd ..  # Return to project root
+npx mega-linter-runner --flavor cupcake
 ```
 
 ## Key Development Guidelines
@@ -131,18 +172,21 @@ npm run build
 - **Always** create appropriate directory structure if implementing new components
 - **Always** follow the planned architecture in the PRD document
 - **Always** update documentation when adding new features
+- **Always** run Mega Linter and fix all issues before finalizing changes
 
 ### Common Pitfalls to Avoid
 1. **Missing Dependencies**: Always run `pip install -r requirements.txt` before Python development
 2. **Node Modules**: Always run `npm install` before frontend development
 3. **Virtual Environment**: Always activate Python virtual environment before backend work
 4. **Port Conflicts**: Backend typically runs on port 8000, frontend on 3000/5173
+5. **Linting Failures**: Never skip Mega Linter validation
 
 ### Security Considerations
 - **Never** commit secrets or API keys
 - **Always** use environment variables for configuration
 - **Always** validate user inputs
 - **Always** implement proper authentication checks
+- **Always** fix security issues flagged by Mega Linter
 
 ## Architecture Details
 
@@ -170,6 +214,13 @@ npm run build
 2. **Port Already in Use**: Kill existing processes or use different ports
 3. **Permission Errors**: Check file permissions and virtual environment setup
 4. **Build Failures**: Ensure all dependencies are installed and up to date
+5. **Mega Linter Failures**: Review the HTML report and fix each issue systematically
+
+### Mega Linter Troubleshooting
+- **Docker Issues**: Ensure Docker is running if using Docker-based Mega Linter
+- **Permission Errors**: Run with appropriate permissions or use sudo (carefully)
+- **Configuration Conflicts**: Check `.mega-linter.yml` for custom rules
+- **False Positives**: Add justified exceptions to `.mega-linter.yml` with clear comments
 
 ### Environment Setup Issues
 - **Python Version**: Ensure Python 3.12+ is available
@@ -197,6 +248,13 @@ Future Azure services integration will include:
 - Efficient database queries for skill aggregation
 - Responsive design for desktop/tablet/mobile
 
+### Code Quality Standards
+All code must pass Mega Linter validation before being considered complete. This includes:
+- Proper formatting and style
+- No security vulnerabilities
+- Documentation compliance
+- Best practices adherence
+
 ---
 
-**Important**: This repository is in early development. Many features described are planned but not yet implemented. Always check the current state of files and directories before making assumptions about what exists. Trust these instructions for guidance on the intended architecture and development patterns, but verify the current implementation state before proceeding with changes.
+**Important**: This repository is in early development. Many features described are planned but not yet implemented. Always check the current state of files and directories before making assumptions about available functionality. Always run Mega Linter after any changes and resolve all issues.
