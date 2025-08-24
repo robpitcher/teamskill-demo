@@ -54,8 +54,8 @@ A secure web application for storing, managing, and visualizing team members' sk
    ```
 
 6. **Access the application**
-   - Open your browser to: http://localhost:8000
-   - Health check endpoint: http://localhost:8000/health
+   - Open your browser to: <http://localhost:8000>
+   - Health check endpoint: <http://localhost:8000/health>
 
 ## Project Structure
 
@@ -80,10 +80,10 @@ teamskill-demo/
 
 ## API Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/` | GET | Home page with welcome message |
-| `/health` | GET | Health check for monitoring |
+| Endpoint  | Method | Description                    |
+|-----------|--------|--------------------------------|
+| `/`       | GET    | Home page with welcome message |
+| `/health` | GET    | Health check for monitoring    |
 
 ## Development
 
@@ -156,12 +156,8 @@ The project uses MegaLinter to ensure code quality and consistency across Python
 
 ### Linting Standards
 
-MegaLinter automatically runs on all pull requests to the main branch and validates:
-- **Python**: Code style, syntax, and best practices
-- **HTML**: Template structure and validation
-- **CSS**: Styling standards and syntax
+MegaLinter automatically runs on all pull requests to the main branch.
 
-Spellcheck linters are disabled to focus on code quality rather than documentation.
 
 ### Running Linter Locally
 
@@ -178,9 +174,8 @@ docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter:v7 --env VALIDATE_ALL_
 ### Linter Configuration
 
 The linting configuration is defined in `.mega-linter.yml` in the repository root. The configuration:
-- Enables only Python, HTML, and CSS linters
-- Disables spellcheck linters
-- Provides clear output for debugging issues
+- Runs all linters
+- Applys some fixes automatically
 
 For more information about MegaLinter, visit the [official documentation](https://megalinter.github.io/).
 
@@ -199,7 +194,7 @@ Refer to `frontend/README.md` for more details on the planned frontend implement
 ## Deployment
 
 ### Local Development
-- Backend: http://localhost:8000
+- Backend: <http://localhost:8000>
 
 ### Future Azure Deployment
 This application is designed for Azure hosting:
@@ -214,11 +209,11 @@ This application is designed for Azure hosting:
 
 The following environment variables will be used in future versions:
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `TEAMSKILL_BASE_URL` | Base URL for the application | `http://localhost:8000` |
-| `AZURE_STORAGE_CONNECTION_STRING` | Azure Blob Storage connection | Not set |
-| `AZURE_DB_CONNECTION_STRING` | Database connection string | Not set |
+| Variable                          | Description                   | Default                 |
+|-----------------------------------|-------------------------------|-------------------------|
+| `TEAMSKILL_BASE_URL`              | Base URL for the application  | `http://localhost:8000` |
+| `AZURE_STORAGE_CONNECTION_STRING` | Azure Blob Storage connection | Not set                 |
+| `AZURE_DB_CONNECTION_STRING`      | Database connection string    | Not set                 |
 
 ## Contributing
 

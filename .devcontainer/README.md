@@ -36,7 +36,7 @@ cd backend
 python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-The application will be available at http://localhost:8000.
+The application will be available at <http://localhost:8000>.
 
 ## Port Forwarding
 

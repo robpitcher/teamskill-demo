@@ -3,7 +3,7 @@ name: MegaLinter
 # Run MegaLinter on pull requests to main branch
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 # Grant GITHUB_TOKEN the permissions required by MegaLinter
 permissions:

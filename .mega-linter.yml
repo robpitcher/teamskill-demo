@@ -1,13 +1,5 @@
-# MegaLinter Configuration for TeamSkill Demo
-# Only include linters for our target languages
-ENABLE:
-  - PYTHON
-  - HTML
-  - CSS
-
-# Explicitly disable all spell checkers
-DISABLE:
-  - SPELL
+# # MegaLinter Configuration for TeamSkill Demo
+APPLY_FIXES: all
 
 # Configure output
 SHOW_ELAPSED_TIME: true
