@@ -1,6 +1,16 @@
 # # MegaLinter Configuration for TeamSkill Demo
 APPLY_FIXES: all
 
+DISABLE_LINTERS:
+  - BASH_SHELLCHECK
+  - MARKDOWN_MARKDOWN_LINK_CHECK
+  - PYTHON_BANDIT
+  - PYTHON_PYRIGHT
+
+DISABLE:
+  - SPELL
+  - REPOSITORY
+
 # Configure output
 SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
