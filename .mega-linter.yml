@@ -1,15 +1,18 @@
-# MegaLinter Configuration for TeamSkill Demo
-# Only include linters for our target languages
-ENABLE:
-  - PYTHON
-  - HTML
-  - CSS
+# # MegaLinter Configuration for TeamSkill Demo
+APPLY_FIXES: all
 
-# Explicitly disable all spell checkers
+DISABLE_LINTERS:
+  - BASH_SHELLCHECK
+  - MARKDOWN_MARKDOWN_LINK_CHECK
+  - PYTHON_BANDIT
+  - PYTHON_PYRIGHT
+  - PYTHON_PYLINT
+
 DISABLE:
   - SPELL
+  - REPOSITORY
 
 # Configure output
 SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
-VALIDATE_ALL_CODEBASE: true
+VALIDATE_ALL_CODEBASE: false

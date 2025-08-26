@@ -52,7 +52,7 @@ Create a secure, user-friendly web application for storing, managing, and visual
 
 #### 3.6. Security & Privacy
 - Role-based access (User, Admin/Lead)
-- integrate with azure monitor and/or app insights for Activity logging, audit trail for uploads/changes, and diagnostics 
+- integrate with azure monitor and/or app insights for Activity logging, audit trail for uploads/changes, and diagnostics
 
 ---
 

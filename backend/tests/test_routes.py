@@ -3,10 +3,6 @@ Unit tests for FastAPI routes in TeamSkill Demo application.
 Tests the home page, health check, and static file functionality.
 """
 
-import pytest
-from fastapi.testclient import TestClient
-from app.main import app
-
 
 def test_home_page_returns_200(client):
     """Test that the home page returns HTTP 200 status code."""
@@ -25,9 +21,9 @@ def test_home_page_template_structure(client):
     """Test that the home page has the expected HTML structure."""
     response = client.get("/")
     assert response.status_code == 200
-    
+
     content = response.text
-    
+
     # Check for key HTML elements
     assert "<header>" in content
     assert "<main" in content
@@ -49,16 +45,16 @@ def test_health_check_content_type(client):
 
 
 def test_health_check_response_structure(client):
-    """Test that the health check endpoint returns the correct JSON structure."""
+    """Test that health check endpoint returns correct JSON structure."""
     response = client.get("/health")
     assert response.status_code == 200
-    
+
     json_data = response.json()
-    
+
     # Check required fields exist
     assert "status" in json_data
     assert "service" in json_data
-    
+
     # Check correct values
     assert json_data["status"] == "healthy"
     assert json_data["service"] == "teamskill-demo"
@@ -75,9 +71,9 @@ def test_static_css_file_contains_expected_content(client):
     """Test that the CSS file contains expected styling rules."""
     response = client.get("/static/style.css")
     assert response.status_code == 200
-    
+
     content = response.text
-    
+
     # Check for some key CSS rules that should be in the file
     assert "TeamSkill Demo" in content or "body" in content
     assert "{" in content and "}" in content  # Basic CSS structure
@@ -100,11 +96,11 @@ def test_home_page_with_different_http_methods(client):
     # GET should work
     response = client.get("/")
     assert response.status_code == 200
-    
+
     # POST should return 405 (Method Not Allowed)
     response = client.post("/")
     assert response.status_code == 405
-    
+
     # PUT should return 405 (Method Not Allowed)
     response = client.put("/")
     assert response.status_code == 405
@@ -115,7 +111,7 @@ def test_health_check_with_different_http_methods(client):
     # GET should work
     response = client.get("/health")
     assert response.status_code == 200
-    
+
     # POST should return 405 (Method Not Allowed)
     response = client.post("/health")
     assert response.status_code == 405
@@ -123,36 +119,35 @@ def test_health_check_with_different_http_methods(client):
 
 def test_mock_home_with_sample_context(client, sample_context, monkeypatch):
     """Test a mock version of the home route with sample context data."""
+    from app.main import app, templates
     from fastapi import Request
     from fastapi.responses import HTMLResponse
-    from app.main import templates, app
-    
+
     # Backup original routes
     original_routes = app.routes.copy()
-    
+
     try:
         # Create a fresh app instance for this test
         app.routes.clear()
-        
+
         # Create a mock route function that uses the sample_context
         @app.get("/", response_class=HTMLResponse)
         async def mock_home(request: Request):
-            return templates.TemplateResponse("index.html", {
-                "request": request,
-                **sample_context
-            })
-        
+            return templates.TemplateResponse(
+                "index.html", {"request": request, **sample_context}
+            )
+
         # Test the mock route
         response = client.get("/")
         assert response.status_code == 200
-        
+
         content = response.text
-        
+
         # Verify the sample context values are used
         assert sample_context["title"] in content
         assert sample_context["message"] in content
         assert sample_context["description"] in content
-    
+
     finally:
         # Restore original routes
         app.routes.clear()

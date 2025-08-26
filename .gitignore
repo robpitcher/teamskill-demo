@@ -52,6 +52,9 @@ yarn-debug.log*
 yarn-error.log*
 *.log
 
+# MegaLinter reports
+megalinter-reports/
+
 # IDE
 .idea/
 
