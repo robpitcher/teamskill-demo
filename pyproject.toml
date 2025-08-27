@@ -47,10 +47,6 @@ Documentation = "https://github.com/robpitcher/teamskill-demo#readme"
 Repository = "https://github.com/robpitcher/teamskill-demo"
 Issues = "https://github.com/robpitcher/teamskill-demo/issues"
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
 [tool.black]
 line-length = 88
 target-version = ['py312']
