@@ -40,17 +40,17 @@ Since this is an early-stage project, most build infrastructure is not yet imple
 #### Python Backend Setup (When Implemented)
 ```bash
 # Always create and activate virtual environment first
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Install dependencies (when requirements.txt exists)
-pip install -r requirements.txt
+# Install dependencies (when pyproject.toml exists)
+uv sync
 
 # For FastAPI development
-pip install fastapi uvicorn
+uv add fastapi uvicorn
 
 # Run development server
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 #### Frontend Setup (When Implemented)
@@ -81,7 +81,6 @@ teamskill-demo/
 ├── backend/                   # Python FastAPI application (to be created)
 │   ├── app/                   # Application code
 │   ├── tests/                 # Backend tests
-│   ├── requirements.txt       # Python dependencies
 │   └── main.py               # Application entry point
 ├── frontend/                  # React application (to be created)
 │   ├── src/                   # Source code
@@ -91,6 +90,8 @@ teamskill-demo/
 ├── docs/                      # Documentation
 │   └── prd.md                # Product Requirements Document
 ├── .gitignore                # Git ignore rules
+├── pyproject.toml            # Python project configuration and dependencies
+├── uv.lock                   # Dependency lock file for reproducible builds
 ├── README.md                 # Project documentation
 └── ISSUES.md                 # Current project issues
 ```
@@ -102,14 +103,11 @@ teamskill-demo/
 **After making ANY code changes, you MUST run Mega Linter and fix all reported issues:**
 
 ```bash
-# Run Mega Linter locally
-npx mega-linter-runner --flavor cupcake
-
 # Or using Docker (recommended)
-docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter:v8
+docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter/flavors/python@v8.8.0
 
-# Or if you have a GitHub Actions workflow
-act -j megalinter
+# Run Mega Linter locally
+npx mega-linter-runner --flavor python
 ```
 
 **Critical Requirements:**
@@ -124,14 +122,7 @@ act -j megalinter
    - Repeat until all errors are resolved
 
 ### Mega Linter Configuration
-If `.mega-linter.yml` exists in the repository, respect its configuration. Common linters include:
-- **Python**: black, flake8, pylint, mypy, bandit
-- **JavaScript/TypeScript**: eslint, prettier
-- **Markdown**: markdownlint
-- **YAML**: yamllint
-- **JSON**: jsonlint
-- **Dockerfile**: hadolint
-- **Security**: gitleaks, secretlint
+If `.mega-linter.yml` exists in the repository, respect its configuration.
 
 ### Current Validation Steps
 1. **Documentation Review**: Ensure changes align with PRD requirements in `docs/prd.md`
@@ -149,10 +140,10 @@ If `.mega-linter.yml` exists in the repository, respect its configuration. Commo
 ```bash
 # Backend validation
 cd backend/
-python -m pytest tests/
-black --check .
-flake8 .
-mypy .
+uv run python -m pytest tests/
+uv run black --check .
+uv run flake8 .
+uv run mypy .
 
 # Frontend validation
 cd frontend/
@@ -173,11 +164,12 @@ npx mega-linter-runner --flavor cupcake
 - **Always** follow the planned architecture in the PRD document
 - **Always** update documentation when adding new features
 - **Always** run Mega Linter and fix all issues before finalizing changes
+- **Always** Increment version number `pyproject.toml` using semantic versioning: `MAJOR.MINOR.PATCH` where major is incremented for incompatible API changes, minor for adding functionality in a backwards-compatible manner, and patch for backwards-compatible bug fixes.
 
 ### Common Pitfalls to Avoid
-1. **Missing Dependencies**: Always run `pip install -r requirements.txt` before Python development
+1. **Missing Dependencies**: Always run `uv sync` before Python development
 2. **Node Modules**: Always run `npm install` before frontend development
-3. **Virtual Environment**: Always activate Python virtual environment before backend work
+3. **Virtual Environment**: Always use uv's built-in virtual environment management
 4. **Port Conflicts**: Backend typically runs on port 8000, frontend on 3000/5173
 5. **Linting Failures**: Never skip Mega Linter validation
 
@@ -210,10 +202,10 @@ npx mega-linter-runner --flavor cupcake
 ## Troubleshooting
 
 ### Common Issues
-1. **Import Errors**: Ensure virtual environment is activated and dependencies installed
+1. **Import Errors**: Ensure virtual environment is managed with uv and dependencies installed
 2. **Port Already in Use**: Kill existing processes or use different ports
 3. **Permission Errors**: Check file permissions and virtual environment setup
-4. **Build Failures**: Ensure all dependencies are installed and up to date
+4. **Build Failures**: Ensure all dependencies are installed and up to date with `uv sync`
 5. **Mega Linter Failures**: Review the HTML report and fix each issue systematically
 
 ### Mega Linter Troubleshooting

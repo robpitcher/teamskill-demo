@@ -34,43 +34,43 @@ backend/tests/
 
 2. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv sync
    ```
 
 ### Running All Tests
 
 ```bash
-python -m pytest tests/ -v
+uv run python -m pytest tests/ -v
 ```
 
 ### Running Specific Test Files
 
 ```bash
 # Test only routes
-python -m pytest tests/test_routes.py -v
+uv run python -m pytest tests/test_routes.py -v
 
 # Test only templates
-python -m pytest tests/test_templates.py -v
+uv run python -m pytest tests/test_templates.py -v
 ```
 
 ### Running Specific Tests
 
 ```bash
 # Run a specific test function
-python -m pytest tests/test_routes.py::test_home_page_returns_200 -v
+uv run python -m pytest tests/test_routes.py::test_home_page_returns_200 -v
 ```
 
 ### Test Output Options
 
 ```bash
 # Verbose output with detailed test names
-python -m pytest tests/ -v
+uv run python -m pytest tests/ -v
 
 # Short traceback format
-python -m pytest tests/ --tb=short
+uv run python -m pytest tests/ --tb=short
 
 # Show local variables in tracebacks
-python -m pytest tests/ --tb=long -v
+uv run python -m pytest tests/ --tb=long -v
 ```
 
 ## Test Coverage
@@ -158,7 +158,7 @@ def test_new_endpoint_returns_200(client):
 ### Common Issues
 
 1. **Import errors**: Ensure you're running tests from the `backend` directory
-2. **Missing dependencies**: Run `pip install -r requirements.txt`
+2. **Missing dependencies**: Run `uv sync`
 3. **Path issues**: Tests expect to be run from the backend directory
 
 ### Debug Mode
@@ -166,7 +166,7 @@ def test_new_endpoint_returns_200(client):
 To run tests with more detailed output:
 
 ```bash
-python -m pytest tests/ -v -s --tb=long
+uv run python -m pytest tests/ -v -s --tb=long
 ```
 
 This will show print statements and detailed tracebacks for debugging.
