@@ -18,11 +18,15 @@
         "python.linting.enabled": true,
         "python.formatting.provider": "black",
         "editor.formatOnSave": true,
-        "editor.rulers": [88]
+        "editor.rulers": [
+          88
+        ]
       }
     }
   },
-  "forwardPorts": [8000],
-  "postCreateCommand": "pip install uv && uv sync && uv add black",
+  "forwardPorts": [
+    8000
+  ],
+  "postCreateCommand": "uv sync && uv add black",
   "remoteUser": "vscode"
 }
