@@ -103,14 +103,11 @@ teamskill-demo/
 **After making ANY code changes, you MUST run Mega Linter and fix all reported issues:**
 
 ```bash
-# Run Mega Linter locally
-npx mega-linter-runner --flavor cupcake
-
 # Or using Docker (recommended)
-docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter:v8
+docker run --rm -v $(pwd):/tmp/lint oxsecurity/megalinter/flavors/python@v8.8.0
 
-# Or if you have a GitHub Actions workflow
-act -j megalinter
+# Run Mega Linter locally
+npx mega-linter-runner --flavor python
 ```
 
 **Critical Requirements:**
@@ -125,14 +122,7 @@ act -j megalinter
    - Repeat until all errors are resolved
 
 ### Mega Linter Configuration
-If `.mega-linter.yml` exists in the repository, respect its configuration. Common linters include:
-- **Python**: black, flake8, pylint, mypy, bandit
-- **JavaScript/TypeScript**: eslint, prettier
-- **Markdown**: markdownlint
-- **YAML**: yamllint
-- **JSON**: jsonlint
-- **Dockerfile**: hadolint
-- **Security**: gitleaks, secretlint
+If `.mega-linter.yml` exists in the repository, respect its configuration.
 
 ### Current Validation Steps
 1. **Documentation Review**: Ensure changes align with PRD requirements in `docs/prd.md`
@@ -174,6 +164,7 @@ npx mega-linter-runner --flavor cupcake
 - **Always** follow the planned architecture in the PRD document
 - **Always** update documentation when adding new features
 - **Always** run Mega Linter and fix all issues before finalizing changes
+- **Always** Increment version number `pyproject.toml` using semantic versioning: `MAJOR.MINOR.PATCH` where major is incremented for incompatible API changes, minor for adding functionality in a backwards-compatible manner, and patch for backwards-compatible bug fixes.
 
 ### Common Pitfalls to Avoid
 1. **Missing Dependencies**: Always run `uv sync` before Python development
