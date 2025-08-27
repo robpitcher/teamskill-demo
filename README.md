@@ -16,7 +16,7 @@ A secure web application for storing, managing, and visualizing team members' sk
 ### Prerequisites
 
 - Python 3.12+
-- pip (Python package manager)
+- uv (Python package manager)
 
 ### Backend Setup
 
@@ -26,15 +26,9 @@ A secure web application for storing, managing, and visualizing team members' sk
    cd teamskill-demo
    ```
 
-2. **Create and activate Python virtual environment**
+2. **Create Python virtual environment**
    ```bash
-   python3 -m venv venv
-
-   # On macOS/Linux:
-   source venv/bin/activate
-
-   # On Windows:
-   venv\Scripts\activate
+   uv venv
    ```
 
 3. **Automated Setup (Linux/macOS)**
@@ -49,8 +43,13 @@ A secure web application for storing, managing, and visualizing team members' sk
 4. **Manual Setup**
    ```bash
    # Install Python dependencies
+   uv sync
+   ```
+
+5. **Start the development server**
+   ```bash
    cd backend
-   pip install -r requirements.txt
+   uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
 6. **Access the application**
@@ -69,11 +68,13 @@ teamskill-demo/
 │   │   └── style.css         # Application styling
 │   ├── templates/            # Jinja2 HTML templates
 │   │   └── index.html        # Home page template
-│   └── requirements.txt      # Python dependencies
+│   └── tests/                # Test suite
 ├── docs/                     # Documentation
 │   └── prd.md                # Product Requirements Document
 ├── frontend/                 # React frontend (placeholder)
 │   └── README.md             # Frontend documentation
+├── pyproject.toml            # Python project configuration and dependencies
+├── uv.lock                   # Dependency lock file for reproducible builds
 ├── setup.sh                  # Setup automation script
 └── README.md                 # This file
 ```
@@ -128,8 +129,7 @@ The project includes comprehensive unit tests for all existing functionality.
 
 ```bash
 cd backend
-python -m pip install -r requirements.txt
-python -m pytest tests/ -v
+uv run python -m pytest tests/ -v
 ```
 
 ### Test Coverage
@@ -218,8 +218,8 @@ The following environment variables will be used in future versions:
 ## Contributing
 
 1. Ensure Python virtual environment is activated
-2. Install dependencies: `pip install -r backend/requirements.txt`
-3. Run the development server: `uvicorn app.main:app --reload`
+2. Install dependencies: `uv sync`
+3. Run the development server: `uv run uvicorn app.main:app --reload`
 4. Make your changes
 5. Update documentation as needed
 

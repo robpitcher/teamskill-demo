@@ -23,6 +23,6 @@
     }
   },
   "forwardPorts": [8000],
-  "postCreateCommand": "pip install -r backend/requirements.txt && pip install black",
+  "postCreateCommand": "pip install uv && uv sync && uv add black",
   "remoteUser": "vscode"
 }
